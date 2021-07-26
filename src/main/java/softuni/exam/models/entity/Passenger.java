@@ -14,6 +14,7 @@ public class Passenger extends BaseEntity{
     private String phoneNumber;
     private String email;
     private Town town;
+    private Set<Ticket> tickets;
 
     public Passenger() {
     }
@@ -74,5 +75,12 @@ public class Passenger extends BaseEntity{
         this.town = town;
     }
 
+    @OneToMany(mappedBy = "passenger")
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
 
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 }

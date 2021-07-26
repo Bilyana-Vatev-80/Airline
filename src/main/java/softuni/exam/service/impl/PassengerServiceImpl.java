@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -67,7 +68,18 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public String getPassengersOrderByTicketsCountDescendingThenByEmail() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        List<Passenger> passengers = this.passengerRepository.getAllByOrderByTicketsThenByEmail();
+
+        passengers.stream().forEach(passenger -> {
+            stringBuilder.append(String.format("Passenger %s  %s\n" +
+                    "\tEmail - %s\n" +
+                    "Phone - %s\n" +
+                    "\tNumber of tickets - %d\n", passenger.getFirstName(),passenger.getLastName(),
+                    passenger.getEmail(),
+                    passenger.getPhoneNumber(),passenger.getTickets().size()));
+        });
+        return stringBuilder.toString();
     }
 
     @Override
